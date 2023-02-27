@@ -24,9 +24,11 @@ class LoginController extends Controller {
         if($email && $password) {
             $token = LoginHandler::verifyLogin($email, $password);
             if($token) {
+                //echo "Entrou 1";
                 $_SESSION['token'] = $token;
                 $this->redirect('/');
             } else {
+                //echo "Entrou 2";
                 $_SESSION['flash'] = 'E-mail e/ou senha não conferem.';
                 $this->redirect('/login');
             }

@@ -14,8 +14,8 @@ class LoginHandler {
 
                 $loggedUser = new User();
                 $loggedUser->id = $data['id'];
-                $loggedUser->email = $data['email'];
                 $loggedUser->name = $data['name'];
+                $loggedUser->avatar = $data['avatar'];
 
                 return $loggedUser;
             }
@@ -24,7 +24,7 @@ class LoginHandler {
         return false;
     }
 
-    public static function verifyLogin() {
+    public static function verifyLogin($email, $password) {
         $user = User::select()->where('email', $email)->one();
 
         if($user) {
@@ -53,12 +53,10 @@ class LoginHandler {
         $token = md5(time().rand(0, 999));
 
         User::insert([
-            'name' => $name,
             'email' => $email,
             'password' => $hash,
+            'name' => $name,
             'birthdate' => $birthdate,
-            'avatar' => 'default.jpg',
-            'cover' => 'cover.jpg',
             'token' => $token
         ])->execute();
 
