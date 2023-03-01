@@ -18,6 +18,15 @@
                                 <div class="profile-info-location"><?=$user->city;?></div>
                             </div>
                             <div class="profile-info-data row">
+                                
+                                    <?php if($user->id != $loggedUser->id): ?>
+                                        <div class="profile-info-item m-width-20">
+                                            <a class="button" href="<?=$base;?>/perfil/<?=$user->id;?>/follow">
+                                                <?=(!$isFollowing)? 'Seguir': 'Deixar de seguir';?>
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                               
                                 <div class="profile-info-item m-width-20">
                                     <div class="profile-info-item-n">
                                         <?=count($user->followers);?>
@@ -79,7 +88,7 @@
                                 <span><?=count($user->following);?></span>
                             </div>
                             <div class="box-header-buttons">
-                                <a href="">ver todos</a>
+                                <a href="<?=$base;?>/perfil/<?=$user->id;?>/amigos">ver todos</a>
                             </div>
                         </div>
                         <div class="box-body friend-list">
@@ -109,10 +118,10 @@
                         <div class="box-header m-10">
                             <div class="box-header-text">
                                 Fotos
-                                <span>(12)</span>
+                                <span>(<?=count($user->photos);?>)</span>
                             </div>
                             <div class="box-header-buttons">
-                                <a href="">ver todos</a>
+                                <a href="<?=$base;?>/perfil/<?=$user->id;?>/fotos">ver todos</a>
                             </div>
                         </div>
 
@@ -134,7 +143,7 @@
                             
                         </div>
                     </div>
-                    
+
                     <?php if($user->id == $loggedUser->id): ?>
                     <?=$render('feed-editor', ['user'=>$loggedUser]);?>
                     <?php endif; ?>
